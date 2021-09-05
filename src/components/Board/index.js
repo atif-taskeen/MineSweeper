@@ -4,6 +4,7 @@ import Cell from "../Cell";
 import { revealed } from "../../util/reveal";
 import Modal from "../Modal";
 import Header from "../Header";
+import Menu from "../Menu";
 
 const Board = () => {
   const [grid, setGrid] = useState([]);
@@ -11,12 +12,15 @@ const Board = () => {
   const [mineLocations, setMineLocations] = useState([]);
   const [gameOver, setGameOver] = useState(false);
   const [flagCount, setFlagCount] = useState(15);
+  const [menuVisibility, setMenuVisibility] = useState(false);
+
   // ComponentDidMount
   useEffect(() => {
     // Creating a board
 
     // Calling the function
     freshBoard();
+    console.log(JSON.parse(localStorage.getItem('data')))
   }, []);
 
   const freshBoard = () => {
@@ -66,10 +70,15 @@ const Board = () => {
   };
 
   return (
-    <div>
+    <div style={{position: 'relative'}}>
       <Header 
         flagCount={flagCount} 
         gameOver={gameOver}
+        showMenu={setMenuVisibility}
+      />
+      <Menu 
+        showMenu={menuVisibility} 
+        hideMenu={setMenuVisibility}
       />
       <div className="board-wrapper">
         {/* {gameOver && <Modal restartGame={restartGame} />} */}

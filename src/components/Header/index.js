@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Clock from "../../assets/clock.png";
 import Flag from "../../assets/flags.png";
+import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 
-export default function Header({flagCount, gameOver}) {
+export default function Header({flagCount, gameOver, showMenu}) {
   let [time, setTime] = useState(0);
+  const clickMenuHandler = () => {
+    showMenu(true)
+  }
 
   useEffect(() => {
     function incrementTime() {
@@ -30,7 +34,7 @@ export default function Header({flagCount, gameOver}) {
         <img src={Clock} alt={Clock}/>
         <h4>{time}</h4>
       </div>
-      <button className="menu-btn"><MenuIcon className="menu-icon"/></button>
+      <IconButton className="menu-btn" onClick={clickMenuHandler}><MenuIcon className="menu-icon"/></IconButton>
     </div>
   );
 }

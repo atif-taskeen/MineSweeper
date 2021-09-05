@@ -3,6 +3,7 @@ body {
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
     background-color: #f2f2f2;
+    margin: 0px;
 }
 
 button {
@@ -10,10 +11,6 @@ button {
   border: none;
   outline: none;
   cursor: pointer;
-}
-
-.App {
-  text-align: center;
 }
 
 .App-logo {
@@ -50,6 +47,10 @@ button {
   position: relative;
   height: calc(100vh - 80px);
   justify-content: center;
+}
+
+.header {
+  text-align: center;
 }
 
 .header-item {
@@ -123,12 +124,73 @@ button {
   width: 60%;
 }
 
-button.menu-btn {
-  right: 20px;
-  position: absolute;
-  top: 20px;
+.menu-btn {
+  right: 10px;
+  position: absolute !important;
+  top: 10px;
+}
+.menu-btn svg {
+  font-size: 50px;
 }
 
 svg {
   fill: #52529e !important;
+}
+
+.menu-wrapper {
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  border-radius: 15px 0px 0px 15px;
+  box-shadow: 0 0 12px #ddd;
+  background-color: #fff;
+  transition: 0.6s;
+  z-index: 1;
+}
+
+.show-menu {
+  width: 300px;
+}
+
+.hide-menu {
+  width: 0px;
+}
+
+.clear-icon {
+  float: right;
+  margin: 20px;
+}
+
+.clear-icon svg {
+  font-size: 30px;
+}
+
+.clear-both {
+  clear: both;
+}
+
+.multiline-text-field {
+  width: calc(100% - 10px);
+}
+
+.copy-icon {
+  fill: #fff !important;
+}
+
+ul.text-field-listing {
+  margin: 0px;
+  padding: 0px;
+  margin-bottom: 20px;
+}
+
+ul.text-field-listing li {
+  list-style: none;
+  width: calc(33.33% - 5px);
+  display: inline-block;
+  margin-right: 7px;
+}
+
+ul.text-field-listing li:last-child {
+  margin-right: 0px;
 }
