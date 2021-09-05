@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -31,45 +31,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const CollapseablePanel = ({variant}) => {
+const CollapseablePanel = ({ variant, gameTypeSetter, gameType }) => {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-  const [gameType, setGameType] = React.useState('1');
+  const [expanded, setExpanded] = useState(false);
+  
 
   const handleRadioChange = (event) => {
-    setGameType(event.target.value);
+    gameTypeSetter(event.target.value);
   };
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-
-  useEffect(() => {
-    let boardDimenssions = {}
-    if (gameType === '1') {
-      boardDimenssions = {
-        height: 9,
-        width: 9,
-        mines: 10
-      }
-    } else if (gameType === '2') {
-      boardDimenssions = {
-        height: 16,
-        width: 16,
-        mines: 40
-      }
-    } else if (gameType === '3') {
-      boardDimenssions = {
-        height: 16,
-        width: 30,
-        mines: 99
-      }
-    }
-    localStorage.setItem('data', JSON.stringify({
-      ...boardDimenssions, 
-      gameType: gameType
-    }));
-  }, [gameType]);
 
   return (
     <div className={classes.root}>

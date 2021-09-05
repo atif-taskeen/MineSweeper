@@ -3,7 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import CollapseablePanel from "../CollapseablePanel";
 
-const Menu = ({showMenu, hideMenu}) => {
+const Menu = ({ showMenu, hideMenu, gameTypeSetter, gameType}) => {
   const clickMenuHandler = () => {
     hideMenu(false)
   }
@@ -15,6 +15,8 @@ const Menu = ({showMenu, hideMenu}) => {
           <div className="clear-both"></div>
           <CollapseablePanel
             variant="Game"
+            gameTypeSetter={gameTypeSetter}
+            gameType={gameType}
           />
         </>
       )}

@@ -13,15 +13,39 @@ const Board = () => {
   const [gameOver, setGameOver] = useState(false);
   const [flagCount, setFlagCount] = useState(15);
   const [menuVisibility, setMenuVisibility] = useState(false);
+  const [gameType, setGameType] = useState('1');
 
-  // ComponentDidMount
   useEffect(() => {
-    // Creating a board
-
-    // Calling the function
     freshBoard();
     console.log(JSON.parse(localStorage.getItem('data')))
   }, []);
+
+  useEffect(() => {
+    let boardDimenssions = {}
+    if (gameType === '1') {
+      boardDimenssions = {
+        height: 9,
+        width: 9,
+        mines: 10
+      }
+    } else if (gameType === '2') {
+      boardDimenssions = {
+        height: 16,
+        width: 16,
+        mines: 40
+      }
+    } else if (gameType === '3') {
+      boardDimenssions = {
+        height: 16,
+        width: 30,
+        mines: 99
+      }
+    }
+    localStorage.setItem('data', JSON.stringify({
+      ...boardDimenssions, 
+      gameType: gameType
+    }));
+  }, [gameType]);
 
   const freshBoard = () => {
     const newBoard = createBoard(10, 15, 15);
@@ -79,6 +103,8 @@ const Board = () => {
       <Menu 
         showMenu={menuVisibility} 
         hideMenu={setMenuVisibility}
+        gameTypeSetter={setGameType}
+        gameType={gameType}
       />
       <div className="board-wrapper">
         {/* {gameOver && <Modal restartGame={restartGame} />} */}
