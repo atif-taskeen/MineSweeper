@@ -198,3 +198,11 @@ ul.text-field-listing li:last-child {
 .accordian > div {
   border-radius: 0px !important;
 }
+
+.accordian-w100 {
+  width: calc(100% - 30px);
+}
+
+textarea {
+  font-size: 12px !important;
+}

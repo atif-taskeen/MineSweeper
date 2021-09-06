@@ -14,6 +14,8 @@ const Board = () => {
   const [flagCount, setFlagCount] = useState(15);
   const [menuVisibility, setMenuVisibility] = useState(false);
   const [encode, setEncoding] = useState('');
+  const [decode, setDecoding] = useState({});
+  const [isImport, setIsImport] = useState(false);
   const boardDimenssions = JSON.parse(localStorage.getItem('data'));
   const [gameType, setGameType] = useState(boardDimenssions ? boardDimenssions.gameId : '1');
 
@@ -48,9 +50,15 @@ const Board = () => {
   }, [gameType]);
 
   useEffect(() => {
-    let gridEncode = JSON.stringify(grid);
+    const gridEncode = JSON.stringify(grid);
     setEncoding(Base64.encode(gridEncode));
   }, [grid]);
+
+  const ImportHandler = (value) => {
+    setIsImport(true);
+    const gridDecode = Base64.decode(value)
+    setGrid(JSON.parse(gridDecode))
+   }
 
   const freshBoard = () => {
     const boardDimenssions = JSON.parse(localStorage.getItem('data'));
@@ -58,7 +66,7 @@ const Board = () => {
     const newBoard = createBoard(height, width, mines);
     setNonMineCount(height * width - mines);
     setMineLocations(newBoard.mineLocation);
-    setGrid(newBoard.board);
+    !isImport && setGrid(newBoard.board);
   };
 
   const restartGame = () => {
@@ -75,7 +83,7 @@ const Board = () => {
     let newGrid = JSON.parse(JSON.stringify(grid));
     //console.log(newGrid[x][y]);
     newGrid[x][y].flagged = true;
-    setGrid(newGrid);
+    !isImport && setGrid(newGrid);
   };
 
   // Reveal Cell
@@ -88,11 +96,11 @@ const Board = () => {
       for (let i = 0; i < mineLocations.length; i++) {
         newGrid[mineLocations[i][0]][mineLocations[i][1]].revealed = true;
       }
-      setGrid(newGrid);
+      !isImport && setGrid(newGrid);
       setGameOver(true);
     } else {
       let newRevealedBoard = revealed(newGrid, x, y, nonMineCount);
-      setGrid(newRevealedBoard.arr);
+      !isImport && setGrid(newRevealedBoard.arr);
       setNonMineCount(newRevealedBoard.newNonMinesCount);
       if (newRevealedBoard.newNonMinesCount === 0) {
         setGameOver(true);
@@ -112,6 +120,8 @@ const Board = () => {
         hideMenu={setMenuVisibility}
         gameTypeSetter={setGameType}
         gameType={gameType}
+        encode={encode}
+        ImportHandler={ImportHandler}
       />
       <div className="board-wrapper">
         {/* {gameOver && <Modal restartGame={restartGame} />} */}
