@@ -12,13 +12,14 @@ export default function Header({flagCount, gameOver, showMenu, restartGame}) {
     showMenu(true)
   }
 
+  const incrementTime = () => {
+    setTimeout(() => {
+      let newTime = time + 1;
+      setTime(newTime);
+    }, 1000);
+  }
+
   useEffect(() => {
-    function incrementTime() {
-      setTimeout(() => {
-        let newTime = time + 1;
-        setTime(newTime);
-      }, 1000);
-    }
     if (!gameOver) {
       incrementTime();
     }
