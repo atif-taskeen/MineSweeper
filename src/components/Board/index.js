@@ -43,7 +43,7 @@ const Board = () => {
       ...dimenssions, 
       gameId: gameType
     }));
-
+    setFlagCount(dimenssions.mines)
     restartGame();
   }, [gameType]);
 
@@ -60,6 +60,7 @@ const Board = () => {
   const freshBoard = () => {
     const boardDimenssions = JSON.parse(localStorage.getItem('data'));
     const { height, width, mines } = boardDimenssions;
+    setFlagCount(mines);
     const newBoard = createBoard(height, width, mines);
     setNonMineCount(height * width - mines);
     setMineLocations(newBoard.mineLocation);
@@ -69,7 +70,6 @@ const Board = () => {
   const restartGame = () => {
     freshBoard();
     setGameOver(false);
-    setFlagCount(15)
   };
 
   // On Right Click / Flag Cell
