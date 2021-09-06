@@ -206,3 +206,11 @@ ul.text-field-listing li:last-child {
 textarea {
   font-size: 12px !important;
 }
+
+.try-again-btn {
+  margin-top: 20px !important;
+}
+
+.try-again-btn svg {
+  fill: #fff !important;
+}
