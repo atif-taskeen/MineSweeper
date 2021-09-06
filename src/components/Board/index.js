@@ -14,8 +14,6 @@ const Board = () => {
   const [flagCount, setFlagCount] = useState(15);
   const [menuVisibility, setMenuVisibility] = useState(false);
   const [encode, setEncoding] = useState('');
-  const [decode, setDecoding] = useState({});
-  const [isImport, setIsImport] = useState(false);
   const boardDimenssions = JSON.parse(localStorage.getItem('data'));
   const [gameType, setGameType] = useState(boardDimenssions ? boardDimenssions.gameId : '1');
 
@@ -55,7 +53,6 @@ const Board = () => {
   }, [grid]);
 
   const ImportHandler = (value) => {
-    setIsImport(true);
     const gridDecode = Base64.decode(value)
     setGrid(JSON.parse(gridDecode))
    }
@@ -66,12 +63,13 @@ const Board = () => {
     const newBoard = createBoard(height, width, mines);
     setNonMineCount(height * width - mines);
     setMineLocations(newBoard.mineLocation);
-    !isImport && setGrid(newBoard.board);
+    setGrid(newBoard.board);
   };
 
   const restartGame = () => {
     freshBoard();
     setGameOver(false);
+    setFlagCount(15)
   };
 
   // On Right Click / Flag Cell
@@ -83,7 +81,7 @@ const Board = () => {
     let newGrid = JSON.parse(JSON.stringify(grid));
     //console.log(newGrid[x][y]);
     newGrid[x][y].flagged = true;
-    !isImport && setGrid(newGrid);
+    setGrid(newGrid);
   };
 
   // Reveal Cell
@@ -96,11 +94,11 @@ const Board = () => {
       for (let i = 0; i < mineLocations.length; i++) {
         newGrid[mineLocations[i][0]][mineLocations[i][1]].revealed = true;
       }
-      !isImport && setGrid(newGrid);
+      setGrid(newGrid);
       setGameOver(true);
     } else {
       let newRevealedBoard = revealed(newGrid, x, y, nonMineCount);
-      !isImport && setGrid(newRevealedBoard.arr);
+      setGrid(newRevealedBoard.arr);
       setNonMineCount(newRevealedBoard.newNonMinesCount);
       if (newRevealedBoard.newNonMinesCount === 0) {
         setGameOver(true);
@@ -114,6 +112,8 @@ const Board = () => {
         flagCount={flagCount} 
         gameOver={gameOver}
         showMenu={setMenuVisibility}
+        gameType={gameType}
+        restartGame={restartGame}
       />
       <Menu 
         showMenu={menuVisibility} 

@@ -14,6 +14,7 @@ import { Beginer, Intermediate, Expert } from "../../Config/field";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { Base64 } from 'js-base64';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +39,7 @@ const Accordians = ({ variant, gameTypeSetter, gameType, expand, encode, ImportH
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [encodeValue, setEncodeValue] = useState('');
+  //const [valid, setValidation] = useState(false);
 
   const handleRadioChange = (event) => {
     gameTypeSetter(event.target.value);
@@ -49,6 +51,14 @@ const Accordians = ({ variant, gameTypeSetter, gameType, expand, encode, ImportH
 
   const handlePasteText = () => {
     ImportHandler(encodeValue);
+  }
+
+  const changeFieldHandler = (e) => {
+    // const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+    // if(btoa(atob(encodeValue))==encodeValue) {
+    //   setValidation(true)
+    // }
+    setEncodeValue(e.target.value)
   }
 
   return (
@@ -109,11 +119,11 @@ const Accordians = ({ variant, gameTypeSetter, gameType, expand, encode, ImportH
                   maxRows={4}
                   style={{ width: '100%' }}
                   value={encodeValue}
-                  onChange={e => setEncodeValue(e.target.value)}
+                  onChange={changeFieldHandler}
                 />
-                  <Button variant="contained" color="primary" style={{marginTop: 20}} onClick={handlePasteText}>
-                    Paste
-                  </Button>
+                <Button variant="contained" color="primary" style={{marginTop: 20}} onClick={handlePasteText}>
+                  Paste
+                </Button>
               </div>
             </>
           }

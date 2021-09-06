@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Clock from "../../assets/clock.png";
 import Flag from "../../assets/flags.png";
+import restart from "../../assets/restart.png";
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 
-export default function Header({flagCount, gameOver, showMenu}) {
+export default function Header({flagCount, gameOver, showMenu, restartGame}) {
   let [time, setTime] = useState(0);
   const clickMenuHandler = () => {
     showMenu(true)
@@ -21,7 +22,6 @@ export default function Header({flagCount, gameOver, showMenu}) {
     if (!gameOver) {
       incrementTime();
     }
-    
   }, [time]);
 
   return (
@@ -29,6 +29,9 @@ export default function Header({flagCount, gameOver, showMenu}) {
       <div className="header-item">
         <img src={Flag} alt={Flag}/>
         <h4>{flagCount}</h4>
+      </div>
+      <div className="header-item">
+        <button onClick={restartGame}><img src={restart} alt={restart}/></button>
       </div>
       <div className="header-item">
         <img src={Clock} alt={Clock}/>
