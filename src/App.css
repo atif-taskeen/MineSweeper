@@ -194,3 +194,7 @@ ul.text-field-listing li {
 ul.text-field-listing li:last-child {
   margin-right: 0px;
 }
+
+.accordian > div {
+  border-radius: 0px !important;
+}

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import createBoard from "../../util/createBoard";
 import Cell from "../Cell";
 import { revealed } from "../../util/reveal";
-import Modal from "../Modal";
 import Header from "../Header";
 import Menu from "../Menu";
+import { Base64 } from 'js-base64';
 
 const Board = () => {
   const [grid, setGrid] = useState([]);
@@ -13,43 +13,50 @@ const Board = () => {
   const [gameOver, setGameOver] = useState(false);
   const [flagCount, setFlagCount] = useState(15);
   const [menuVisibility, setMenuVisibility] = useState(false);
-  const [gameType, setGameType] = useState('1');
+  const [encode, setEncoding] = useState('');
+  const boardDimenssions = JSON.parse(localStorage.getItem('data'));
+  const [gameType, setGameType] = useState(boardDimenssions ? boardDimenssions.gameId : '1');
 
   useEffect(() => {
-    freshBoard();
-    console.log(JSON.parse(localStorage.getItem('data')))
-  }, []);
-
-  useEffect(() => {
-    let boardDimenssions = {}
+    let dimenssions = {};
     if (gameType === '1') {
-      boardDimenssions = {
+      dimenssions = {
         height: 9,
         width: 9,
         mines: 10
       }
     } else if (gameType === '2') {
-      boardDimenssions = {
+      dimenssions = {
         height: 16,
         width: 16,
         mines: 40
       }
     } else if (gameType === '3') {
-      boardDimenssions = {
+      dimenssions = {
         height: 16,
         width: 30,
         mines: 99
       }
     }
+
     localStorage.setItem('data', JSON.stringify({
-      ...boardDimenssions, 
-      gameType: gameType
+      ...dimenssions, 
+      gameId: gameType
     }));
+
+    restartGame();
   }, [gameType]);
 
+  useEffect(() => {
+    let gridEncode = JSON.stringify(grid);
+    setEncoding(Base64.encode(gridEncode));
+  }, [grid]);
+
   const freshBoard = () => {
-    const newBoard = createBoard(10, 15, 15);
-    setNonMineCount(10 * 15 - 15);
+    const boardDimenssions = JSON.parse(localStorage.getItem('data'));
+    const { height, width, mines } = boardDimenssions;
+    const newBoard = createBoard(height, width, mines);
+    setNonMineCount(height * width - mines);
     setMineLocations(newBoard.mineLocation);
     setGrid(newBoard.board);
   };

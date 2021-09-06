@@ -45,7 +45,7 @@ const CollapseablePanel = ({ variant, gameTypeSetter, gameType }) => {
   };
 
   return (
-    <div className={classes.root}>
+    <div className="accordian">
       {variant === 'Game' && <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -73,6 +73,9 @@ const CollapseablePanel = ({ variant, gameTypeSetter, gameType }) => {
           </FormControl>
         </AccordionDetails>
       </Accordion>}
+      {
+        
+      }
     </div>
   );
 };
