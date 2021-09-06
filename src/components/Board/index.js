@@ -48,14 +48,16 @@ const Board = () => {
   }, [gameType]);
 
   useEffect(() => {
-    const gridEncode = JSON.stringify(grid);
+    const gridEncode = JSON.stringify({grids: [...grid], locations: [...mineLocations] });
     setEncoding(Base64.encode(gridEncode));
   }, [grid]);
 
   const ImportHandler = (value) => {
-    const gridDecode = Base64.decode(value)
-    setGrid(JSON.parse(gridDecode))
-   }
+    const gridDecode = Base64.decode(value);
+    const decode = JSON.parse(gridDecode);
+    setGrid(decode?.grids);
+    setMineLocations(decode?.locations);
+  }
 
   const freshBoard = () => {
     const boardDimenssions = JSON.parse(localStorage.getItem('data'));
