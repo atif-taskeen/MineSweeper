@@ -11,7 +11,7 @@ const Board = () => {
   const [nonMineCount, setNonMineCount] = useState(0);
   const [mineLocations, setMineLocations] = useState([]);
   const [gameOver, setGameOver] = useState(false);
-  const [flagCount, setFlagCount] = useState(15);
+  const [flagCount, setFlagCount] = useState(0);
   const [menuVisibility, setMenuVisibility] = useState(false);
   const [encode, setEncoding] = useState('');
   const boardDimenssions = JSON.parse(localStorage.getItem('data'));
@@ -48,7 +48,11 @@ const Board = () => {
   }, [gameType]);
 
   useEffect(() => {
-    const gridEncode = JSON.stringify({grids: [...grid], locations: [...mineLocations] });
+    const gridEncode = JSON.stringify(
+      {grids: [...grid], 
+      locations: [...mineLocations], 
+      flags: flagCount 
+    });
     setEncoding(Base64.encode(gridEncode));
   }, [grid]);
 
@@ -57,6 +61,7 @@ const Board = () => {
     const decode = JSON.parse(gridDecode);
     setGrid(decode?.grids);
     setMineLocations(decode?.locations);
+    setFlagCount(decode.flags)
   }
 
   const freshBoard = () => {
@@ -126,7 +131,6 @@ const Board = () => {
         ImportHandler={ImportHandler}
       />
       <div className="board-wrapper">
-        {/* {gameOver && <Modal restartGame={restartGame} />} */}
         {grid.map((singleRow, index1) => {
           return (
             <div style={{ display: "flex" }} key={index1}>

@@ -5,8 +5,6 @@ export const revealed = (arr, x, y, newNonMinesCount) => {
     return;
   }
 
-  // Stack of all the cells which we
-  // would like to reveal/flip
   let flipped = [];
   flipped.push(arr[x][y]);
   while (flipped.length !== 0) {

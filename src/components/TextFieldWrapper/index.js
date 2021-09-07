@@ -8,7 +8,7 @@ const TextFieldWrapper = ({config}) => {
       {
         config.map(item => 
           <li key={item.label} item xs={3}>
-            <TextField label={item.label} value={item.value} disabled={item.disable}/>
+            <TextField label={item.label} value={item.value} disabled/>
           </li>
         )
       } 

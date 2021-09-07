@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -70,7 +70,7 @@ const Accordians = ({ variant, gameTypeSetter, gameType, expand, encode, ImportH
         >
           <Typography className={classes.heading}>{variant}</Typography>
         </AccordionSummary>
-        <AccordionDetails className={variant === 'Export' && 'accordian-w100'}>
+        <AccordionDetails className={variant === 'Export' ? 'accordian-w100' : ''}>
           {variant === 'Game' && 
             <FormControl component="fieldset">
               <RadioGroup aria-label="gameType" name="gameType" value={gameType} onChange={handleRadioChange}>
@@ -92,7 +92,7 @@ const Accordians = ({ variant, gameTypeSetter, gameType, expand, encode, ImportH
           {
             variant === 'Export' && 
             <>
-              <div className={variant === 'Export' && 'accordian-w100'}>
+              <div className={variant === 'Export' ? 'accordian-w100' : ''}>
                 <TextField
                   label="Export"
                   multiline
@@ -112,7 +112,7 @@ const Accordians = ({ variant, gameTypeSetter, gameType, expand, encode, ImportH
           {
             variant === 'Import' && 
             <>
-              <div className={variant === 'Export' && 'accordian-w100'}>
+              <div className={variant === 'Export' ? 'accordian-w100' : ''}>
                 <TextField
                   label="Import"
                   multiline

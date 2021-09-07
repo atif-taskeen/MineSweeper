@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Accordians from "../Accordians";
 
 const CollapseablePanel = ({ gameTypeSetter, gameType, encode, ImportHandler }) => {
